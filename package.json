@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx webpack --config webpack.config.js -w",
-    "serve": "webpack serve --config webpack.dev.js --progress --profile --content-base src/"
+    "start": "npx webpack --config webpack.config.js -w"
   },
   "keywords": [],
   "author": "",
