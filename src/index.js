@@ -80,8 +80,8 @@ const termComponent = () => {
       article.appendChild(select);
     });
     body.appendChild(article);
+    setTimeout(() => addContent());
   })
-  addContent();
 }
 
 termComponent();
