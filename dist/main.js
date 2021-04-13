@@ -1,1 +1,103 @@
-(()=>{const e=()=>{const e=document.getElementById("main"),t=document.createElement("article"),n=["year","month","day","start","end"];setTimeout((()=>{n.forEach((e=>{const n=document.createElement("select");n.className=e,t.appendChild(n)}))})),e.appendChild(t),(()=>{const e=document.getElementsByClassName("year"),t=document.getElementsByClassName("month"),n=document.getElementsByClassName("day"),o=document.getElementsByClassName("start"),d=document.getElementsByClassName("end"),a=["January","February","March","April","May","June","July","August","September","October","November","December"];for(let t=2022;t>1900;t--){const n=document.createElement("option"),o=document.createTextNode(`${t}`);n.appendChild(o),n.setAttribute("value",`${e}`);for(let t of e)t.appendChild(n)}for(let e=0;e<12;e++){const n=document.createElement("option"),o=document.createTextNode(`${a[e]}`);n.appendChild(o),n.setAttribute("value",`${a[e]}`);for(let e of t)e.appendChild(n)}for(let e=1;e<32;e++){const t=document.createElement("option"),o=document.createTextNode(`${e}`);t.appendChild(o),t.setAttribute("value",`${e}`);for(let e of n)e.appendChild(t)}for(let e=0;e<24;e++)for(let t=0;t<4;t+=3){const n=document.createElement("option"),d=document.createTextNode(`${e}:${t}0`);n.appendChild(d),n.setAttribute("value",`${e}`);for(let e of o)e.appendChild(n)}for(let e=0;e<24;e++)for(let t=0;t<4;t+=3){const n=document.createElement("option"),o=document.createTextNode(`${e}:${t}0`);n.appendChild(o),n.setAttribute("value",`${e}`);for(let e of d)e.appendChild(n)}})()};e();const t=document.getElementById("main");let n=document.createElement("button"),o=document.createTextNode("Dodaj još jedan termin");n.setAttribute("id","btn"),n.appendChild(o),t.appendChild(n),document.querySelector("#btn").addEventListener("click",(()=>{e()}))})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+const addContent = () => {
+  const year = document.getElementsByClassName("year");
+  const month = document.getElementsByClassName("month");
+  const day = document.getElementsByClassName("day");
+  const start = document.getElementsByClassName("start");
+  const end = document.getElementsByClassName("end");
+
+  const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  for (let i = 2022; i > 1900; i--) {
+    const option = document.createElement("option");
+    const text = document.createTextNode(`${i}`);
+    option.appendChild(text);
+    option.setAttribute("value", `${year}`);
+
+    for (let item of year) {
+      item.appendChild(option)
+    }
+  }
+
+  for (let i = 0; i < 12; i++) {
+    const option = document.createElement("option");
+    const text = document.createTextNode(`${monthsArr[i]}`);
+    option.appendChild(text);
+    option.setAttribute("value", `${monthsArr[i]}`);
+
+    for (let item of month) {
+      item.appendChild(option)
+    }
+  }
+
+  for (let i = 1; i < 32; i++) {
+    const option = document.createElement("option");
+    const text = document.createTextNode(`${i}`);
+    option.appendChild(text);
+    option.setAttribute("value", `${i}`);
+
+    for (let item of day) {
+      item.appendChild(option)
+    }
+  }
+
+  for (let i = 0; i < 24; i++) {
+    for (let j = 0; j < 4; j+=3) {
+      const option = document.createElement("option");
+      const text = document.createTextNode(`${i}:${j}0`);
+      option.appendChild(text);
+      option.setAttribute("value", `${i}`);
+
+      for (let item of start) {
+        item.appendChild(option)
+      }
+    }
+  }
+
+  for (let i = 0; i < 24; i++) {
+    for (let j = 0; j < 4; j+=3) {
+      const option = document.createElement("option");
+      const text = document.createTextNode(`${i}:${j}0`);
+      option.appendChild(text);
+      option.setAttribute("value", `${i}`);
+
+      for (let item of end) {
+        item.appendChild(option)
+      }
+    }
+  }
+}
+
+const termComponent = () => {
+  const body = document.getElementById('main');
+  const article = document.createElement("article");
+  const classesArr = ["year", "month", "day", "start", "end"];
+
+  setTimeout(() => {
+    classesArr.forEach(el => {
+      const select = document.createElement("select");
+      select.className = el;
+
+      article.appendChild(select);
+    });
+    body.appendChild(article);
+  })
+  addContent();
+}
+
+termComponent();
+
+const body = document.getElementById('main');
+
+let addBtn = document.createElement("button");
+let text = document.createTextNode('Dodaj još jedan termin');
+addBtn.setAttribute("id", "btn");
+addBtn.appendChild(text);
+body.appendChild(addBtn);   
+
+document.querySelector("#btn").addEventListener('click', () => {
+  termComponent();
+})
+/******/ })()
+;

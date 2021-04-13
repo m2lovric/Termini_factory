@@ -79,9 +79,8 @@ const termComponent = () => {
 
       article.appendChild(select);
     });
+    body.appendChild(article);
   })
-  
-  body.appendChild(article);
   addContent();
 }
 
