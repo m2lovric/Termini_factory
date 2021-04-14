@@ -1,3 +1,7 @@
+import './style.scss';
+
+let number = 1;
+
 const addContent = () => {
   const year = document.getElementsByClassName("year");
   const month = document.getElementsByClassName("month");
@@ -67,9 +71,21 @@ const addContent = () => {
   }
 }
 
-const termComponent = () => {
+const termComponent = (number) => {
   const body = document.getElementById('main');
   const article = document.createElement("article");
+  article.className = "term__article";
+
+  const header = document.createElement("h2");
+  header.className = "term__article__header";
+  const text = document.createTextNode(`Termin #${number}`);
+  header.appendChild(text);
+  article.appendChild(header);
+
+  const section = document.createElement("section");
+  section.className = "term__article__dropdowns";
+  
+    
   const classesArr = ["year", "month", "day", "start", "end"];
 
   setTimeout(() => {
@@ -77,16 +93,17 @@ const termComponent = () => {
       const select = document.createElement("select");
       select.className = el;
 
-      article.appendChild(select);
+      section.appendChild(select);
     });
+    article.appendChild(section);
     body.appendChild(article);
     setTimeout(() => addContent());
   })
 }
 
-termComponent();
+termComponent(number);
 
-const body = document.getElementById('main');
+const body = document.getElementById('btn-container');
 
 let addBtn = document.createElement("button");
 let text = document.createTextNode('Dodaj još jedan termin');
@@ -95,5 +112,6 @@ addBtn.appendChild(text);
 body.appendChild(addBtn);   
 
 document.querySelector("#btn").addEventListener('click', () => {
-  termComponent();
+  number++;
+  termComponent(number);
 })
