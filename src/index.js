@@ -82,44 +82,13 @@ const termComponent = (number) => {
 
   const section = document.createElement("section");
   section.className = "term__article__dropdowns";
-  
-    
+
   const classesArr = ["year", "month", "day", "start", "end"];
-  let year = 2022;
-  let month = 1;
-  let day = 1;
-  let start = '00:00';
-  let end = '00:00';
-  console.log(year, month, day, start, end);
-  let data;
 
   setTimeout(() => {
     classesArr.forEach(el => {
       const select = document.createElement("select");
       select.className = el;
-      select.addEventListener('change', e => {
-        switch (e.target.className) {
-          case "year":
-            year = e.target.value;
-            break;
-          case "month":
-            month = e.target.value;
-            break;
-          case "day":
-            day = e.target.value;
-            break;
-          case "start":
-            start = e.target.value;
-            break;
-          case "end":
-            end = e.target.value;
-            break;
-        }
-
-        fetch(`data/${year}-0${month}-${day}.json`)
-          .then(res => res.json())
-          .then(data => console.log(data));    
-      })
 
       section.appendChild(select);
     });
@@ -144,3 +113,42 @@ document.querySelector("#btn").addEventListener('click', () => {
   number++;
   termComponent(number);
 })
+
+window.onload = function () {
+  let year = 2022;
+  let month = 1;
+  let day = 1;
+  let start = '00:00';
+  let end = '00:00';
+  console.log(year, month, day, start, end);
+
+  const select = document.getElementsByTagName('select');
+  const selectArr = Array.from(select);
+
+  selectArr.map(item => {
+    item.addEventListener('change', e => {
+      switch (e.target.className) {
+        case "year":
+          year = e.target.value;
+          break;
+        case "month":
+          month = e.target.value;
+          break;
+        case "day":
+          day = e.target.value;
+          break;
+        case "start":
+          start = e.target.value;
+          break;
+        case "end":
+          end = e.target.value;
+          break;
+      }
+
+      fetch(`data/${year}-0${month}-${day}.json`)
+        .then(res => res.json())
+        .then(data => console.log(data));
+    }
+    )
+  })
+}
