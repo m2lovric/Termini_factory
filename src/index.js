@@ -9,24 +9,22 @@ const addContent = () => {
   const start = document.getElementsByClassName("start");
   const end = document.getElementsByClassName("end");
 
-  const monthsArr = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
   for (let i = 2022; i > 1900; i--) {
     const option = document.createElement("option");
     const text = document.createTextNode(`${i}`);
     option.appendChild(text);
-    option.setAttribute("value", `${year}`);
+    option.setAttribute("value", `${i}`);
 
     for (let item of year) {
       item.appendChild(option)
     }
   }
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 1; i < 13; i++) {
     const option = document.createElement("option");
-    const text = document.createTextNode(`${monthsArr[i]}`);
+    const text = document.createTextNode(`${i}`);
     option.appendChild(text);
-    option.setAttribute("value", `${monthsArr[i]}`);
+    option.setAttribute("value", `${i}`);
 
     for (let item of month) {
       item.appendChild(option)
@@ -49,7 +47,7 @@ const addContent = () => {
       const option = document.createElement("option");
       const text = document.createTextNode(`${i}:${j}0`);
       option.appendChild(text);
-      option.setAttribute("value", `${i}`);
+      option.setAttribute("value", `${i}:${j}0`);
 
       for (let item of start) {
         item.appendChild(option)
@@ -62,7 +60,7 @@ const addContent = () => {
       const option = document.createElement("option");
       const text = document.createTextNode(`${i}:${j}0`);
       option.appendChild(text);
-      option.setAttribute("value", `${i}`);
+      option.setAttribute("value", `${i}:${j}0`);
 
       for (let item of end) {
         item.appendChild(option)
@@ -87,16 +85,47 @@ const termComponent = (number) => {
   
     
   const classesArr = ["year", "month", "day", "start", "end"];
+  let year = 2022;
+  let month = 1;
+  let day = 1;
+  let start = '00:00';
+  let end = '00:00';
+  console.log(year, month, day, start, end);
+  let data;
 
   setTimeout(() => {
     classesArr.forEach(el => {
       const select = document.createElement("select");
       select.className = el;
+      select.addEventListener('change', e => {
+        switch (e.target.className) {
+          case "year":
+            year = e.target.value;
+            break;
+          case "month":
+            month = e.target.value;
+            break;
+          case "day":
+            day = e.target.value;
+            break;
+          case "start":
+            start = e.target.value;
+            break;
+          case "end":
+            end = e.target.value;
+            break;
+        }
+
+        fetch(`data/${year}-0${month}-${day}.json`)
+          .then(res => res.json())
+          .then(data => console.log(data));    
+      })
 
       section.appendChild(select);
     });
     article.appendChild(section);
     body.appendChild(article);
+
     setTimeout(() => addContent());
   })
 }
