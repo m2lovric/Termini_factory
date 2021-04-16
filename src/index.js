@@ -41,23 +41,11 @@ const addContent = (data) => {
       item.appendChild(option)
     }
   }
-
+  
   for (let i = 0; i < 24; i++) {
     for (let j = 0; j < 4; j+=3) {
       const option = document.createElement("option");
-      let text;
-
-      if (data) {
-        data.map(el => {
-          if (`${i}:${j}0` === el) {
-            text = document.createTextNode(`${i}:${j}0 - zauzeto`);
-          } else {
-            text = document.createTextNode(`${i}:${j}0`);
-          }  
-        })
-      } else {
-        text = document.createTextNode(`${i}:${j}0`);
-      }
+      const text = document.createTextNode(`${i}:${j}0`);
 
       option.appendChild(text);
       option.setAttribute("value", `${i}:${j}0`);
@@ -65,6 +53,16 @@ const addContent = (data) => {
       for (let item of start) {
         item.appendChild(option)
       }
+    }
+  }
+
+  for (let i = 0; i < 24; i++) {
+    for (let j = 0; j < 4; j+=3) {
+      const option = document.createElement("option");
+      const text = document.createTextNode(`${i}:${j}0`);
+
+      option.appendChild(text);
+      option.setAttribute("value", `${i}:${j}0`);
 
       for (let item of end) {
         item.appendChild(option)
@@ -162,9 +160,16 @@ const selectListener = () => {
         let termsObj = terms.data[date];
         let data = termsObj[0];
 
-        addContent(data);
+        setTimeout(() => {
+          const start = document.querySelector('.start');
+          const end = document.querySelector('.end');
+
+          const startArr = Array.from(start.options);
+
+          startArr.map(el => console.log(el));
+        })
       },100)
-    }//probaj ovdje proči kroz select optione i mapiraj/filtriraj šta već
+    }
     )
   })
 }
