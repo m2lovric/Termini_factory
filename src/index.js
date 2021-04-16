@@ -125,7 +125,6 @@ const selectListener = () => {
   let day = 1;
   let start = '00:00';
   let end = '00:00';
-  console.log(year, month, day, start, end);
 
   const select = document.getElementsByTagName('select');
   const selectArr = Array.from(select);
@@ -155,7 +154,6 @@ const selectListener = () => {
         .then(data => terms = data);
       
       setTimeout(() => {
-        console.log(day);
         let date = `${day}.0${month}.${year}`
         let termsObj = terms.data[date];
         let data = termsObj[0];
@@ -165,8 +163,23 @@ const selectListener = () => {
           const end = document.querySelector('.end');
 
           const startArr = Array.from(start.options);
+          const endArr = Array.from(end.options);
 
-          startArr.map(el => console.log(el));
+          startArr.map(el => {
+            let item = el;
+            data.map(el => {
+              el === item.value ? item.innerHTML = `${el} - zauzeto` : '';
+              el === item.value ? item.disabled = true : '';
+            })
+          });
+
+          endArr.map(el => {
+            let item = el;
+            data.map(el => {
+              el === item.value ? item.innerHTML = `${el} - zauzeto` : '';
+              el === item.value ? item.disabled = true : '';
+            })
+          });
         })
       },100)
     }
