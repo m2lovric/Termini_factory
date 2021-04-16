@@ -97,7 +97,7 @@ const termComponent = (number) => {
   section.className = "term__article__dropdowns";
 
   deleteBtn.addEventListener('click', (e) => {
-    e.target.parentElement.remove();
+    e.target.parentElement.parentElement.remove();
   })
 
   const classesArr = ["year", "month", "day", "start", "end"];
