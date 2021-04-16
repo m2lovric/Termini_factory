@@ -148,15 +148,21 @@ const selectListener = () => {
           end = e.target.value;
           break;
       }
+
+      const monthStr = month.toString();
+      monthStr.length > 1 ? month = monthStr : month = `0${parseInt(monthStr)}`;
+
       let terms;
-      fetch(`data/${year}-0${month}-${day}.json`)
+      fetch(`data/${year}-${month}-${day}.json`)
         .then(res => res.json())
         .then(data => terms = data);
       
       setTimeout(() => {
-        let date = `${day}.0${month}.${year}`
+        let date = `${day}.${month}.${year}`
         let termsObj = terms.data[date];
         let data = termsObj[0];
+
+        console.log(date);
 
         setTimeout(() => {
           const start = document.querySelector('.start');
