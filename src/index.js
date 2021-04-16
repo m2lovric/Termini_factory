@@ -2,7 +2,7 @@ import './style.scss';
 
 let number = 1;
 
-const addContent = () => {
+const addContent = (data) => {
   const year = document.getElementsByClassName("year");
   const month = document.getElementsByClassName("month");
   const day = document.getElementsByClassName("day");
@@ -45,22 +45,26 @@ const addContent = () => {
   for (let i = 0; i < 24; i++) {
     for (let j = 0; j < 4; j+=3) {
       const option = document.createElement("option");
-      const text = document.createTextNode(`${i}:${j}0`);
+      let text;
+
+      if (data) {
+        data.map(el => {
+          if (`${i}:${j}0` === el) {
+            text = document.createTextNode(`${i}:${j}0 - zauzeto`);
+          } else {
+            text = document.createTextNode(`${i}:${j}0`);
+          }  
+        })
+      } else {
+        text = document.createTextNode(`${i}:${j}0`);
+      }
+
       option.appendChild(text);
       option.setAttribute("value", `${i}:${j}0`);
 
       for (let item of start) {
         item.appendChild(option)
       }
-    }
-  }
-
-  for (let i = 0; i < 24; i++) {
-    for (let j = 0; j < 4; j+=3) {
-      const option = document.createElement("option");
-      const text = document.createTextNode(`${i}:${j}0`);
-      option.appendChild(text);
-      option.setAttribute("value", `${i}:${j}0`);
 
       for (let item of end) {
         item.appendChild(option)
@@ -95,7 +99,10 @@ const termComponent = (number) => {
     article.appendChild(section);
     body.appendChild(article);
 
-    setTimeout(() => addContent());
+    setTimeout(() => {
+      addContent();
+      selectListener();
+    });
   })
 }
 
@@ -114,7 +121,7 @@ document.querySelector("#btn").addEventListener('click', () => {
   termComponent(number);
 })
 
-window.onload = function () {
+const selectListener = () => {
   let year = 2022;
   let month = 1;
   let day = 1;
@@ -144,11 +151,24 @@ window.onload = function () {
           end = e.target.value;
           break;
       }
-
+      let terms;
       fetch(`data/${year}-0${month}-${day}.json`)
         .then(res => res.json())
-        .then(data => console.log(data));
-    }
+        .then(data => terms = data);
+      
+      setTimeout(() => {
+        console.log(day);
+        let date = `${day}.0${month}.${year}`
+        let termsObj = terms.data[date];
+        let data = termsObj[0];
+
+        addContent(data);
+      },100)
+    }//probaj ovdje proči kroz select optione i mapiraj/filtriraj šta već
     )
   })
+}
+
+window.onload = function () {
+  selectListener();
 }
