@@ -2,7 +2,7 @@ import './style.scss';
 
 let number = 1;
 
-const addContent = (data) => {
+const addContent = () => {
   const year = document.getElementsByClassName("year");
   const month = document.getElementsByClassName("month");
   const day = document.getElementsByClassName("day");
@@ -76,14 +76,29 @@ const termComponent = (number) => {
   const article = document.createElement("article");
   article.className = "term__article";
 
+  const sectionTop = document.createElement("section");
+  sectionTop.className = "term__article__top";
+
   const header = document.createElement("h2");
-  header.className = "term__article__header";
+  header.className = "header";
   const text = document.createTextNode(`Termin #${number}`);
   header.appendChild(text);
-  article.appendChild(header);
+  sectionTop.appendChild(header);
+
+  const deleteBtn = document.createElement('button');
+  const btnText = document.createTextNode('Delete');
+  deleteBtn.setAttribute("class", "deleteBtn");
+  deleteBtn.appendChild(btnText);
+  number > 1 ? sectionTop.appendChild(deleteBtn) : '';
+
+  article.appendChild(sectionTop);
 
   const section = document.createElement("section");
   section.className = "term__article__dropdowns";
+
+  deleteBtn.addEventListener('click', (e) => {
+    e.target.parentElement.remove();
+  })
 
   const classesArr = ["year", "month", "day", "start", "end"];
 
@@ -167,6 +182,8 @@ const selectListener = () => {
         setTimeout(() => {
           const start = document.querySelector('.start');
           const end = document.querySelector('.end');
+
+          console.log(start.options)
 
           const startArr = Array.from(start.options);
           const endArr = Array.from(end.options);

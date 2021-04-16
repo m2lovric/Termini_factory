@@ -29,10 +29,22 @@ body {
     margin-bottom: 20px;
     background-color: #ededed;
 
-    &__header {
-      align-self: flex-start;
-      font-weight: 500;
-      margin-left: 5%;
+    &__top {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .header {
+        font-weight: 500;
+        margin-left: 5%;
+      }
+
+      .deleteBtn {
+        width: 100px;
+        height: 32px;
+        margin-right: 5%;
+      }
     }
 
     &__dropdowns {
