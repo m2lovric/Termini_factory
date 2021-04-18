@@ -114,7 +114,10 @@ const termComponent = (number) => {
 
     setTimeout(() => {
       addContent();
-      selectListener();
+
+      setTimeout(() => {
+        selectListener();
+      })
     });
   })
 }
@@ -168,6 +171,9 @@ const selectListener = () => {
       monthStr.length > 1 ? month = monthStr : month = `0${parseInt(monthStr)}`;
 
       let terms;
+      const startOptions = document.getElementsByClassName('start');
+      const endOptions = document.getElementsByClassName('end');
+
       fetch(`data/${year}-${month}-${day}.json`)
         .then(res => res.json())
         .then(data => terms = data);
@@ -180,31 +186,31 @@ const selectListener = () => {
         console.log(date);
 
         setTimeout(() => {
-          const start = document.querySelector('.start');
-          const end = document.querySelector('.end');
+          Array.from(startOptions).forEach(el => {
+            let optionStart = Array.from(el.options);
+            optionStart.map(el => {
+              let item = el;
+              data.map(el => {
+                el === item.value ? item.innerHTML = `${el} - zauzeto` : '';
+                el === item.value ? item.disabled = true : '';
+              })
+            });
+          })
+          
+          Array.from(endOptions).forEach(el => {
+            let optionEnd = Array.from(el.options);
+            optionEnd.map(el => {
+              let item = el;
+              data.map(el => {
+                el === item.value ? item.innerHTML = `${el} - zauzeto` : '';
+                el === item.value ? item.disabled = true : '';
+              })
+            });
+          })
 
-          console.log(start.options)
-
-          const startArr = Array.from(start.options);
-          const endArr = Array.from(end.options);
-
-          startArr.map(el => {
-            let item = el;
-            data.map(el => {
-              el === item.value ? item.innerHTML = `${el} - zauzeto` : '';
-              el === item.value ? item.disabled = true : '';
-            })
-          });
-
-          endArr.map(el => {
-            let item = el;
-            data.map(el => {
-              el === item.value ? item.innerHTML = `${el} - zauzeto` : '';
-              el === item.value ? item.disabled = true : '';
-            })
-          });
+          
         })
-      },100)
+      }, 100)
     }
     )
   })
