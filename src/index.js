@@ -176,21 +176,24 @@ const selectListener = () => {
 
       fetch(`data/${year}-${month}-${day}.json`)
         .then(res => res.json())
-        .then(data => terms = data);
+        .then(data => terms = data)
       
       setTimeout(() => {
-        let date = `${day}.${month}.${year}`
+        let date = `${day}.${month}.${year}`;
         let termsObj = terms.data[date];
         let data = termsObj[0];
-
+        localStorage.setItem(`data${year}.${month}.${day}`, data);
         console.log(date);
-
+        let dataArr = localStorage.getItem(`data${year}.${month}.${day}`).split(',');
+        dataArr.push(start);
+        dataArr.push(end);
+        console.log(dataArr);
         setTimeout(() => {
           Array.from(startOptions).forEach(el => {
             let optionStart = Array.from(el.options);
             optionStart.map(el => {
               let item = el;
-              data.map(el => {
+              dataArr.map(el => {
                 el === item.value ? item.innerHTML = `${el} - zauzeto` : '';
                 el === item.value ? item.disabled = true : '';
               })
@@ -201,7 +204,7 @@ const selectListener = () => {
             let optionEnd = Array.from(el.options);
             optionEnd.map(el => {
               let item = el;
-              data.map(el => {
+              dataArr.map(el => {
                 el === item.value ? item.innerHTML = `${el} - zauzeto` : '';
                 el === item.value ? item.disabled = true : '';
               })
